@@ -6,6 +6,7 @@ import showHelp from './controllers/showHelp';
 import handleTwitchPortal from './controllers/auth/portals/handleTwitchPortal';
 import handleSpotifyPortal from './controllers/auth/portals/handleSpotifyPortal';
 import handleTwitchCallback from './controllers/auth/callbacks/handleTwitchCallback';
+import handleSpotifyCallback from './controllers/auth/callbacks/handleSpotifyCallback';
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.get('/auth/portal/twitch', handleTwitchPortal);
 app.get('/auth/portal/spotify', handleSpotifyPortal);
 
 app.get('/auth/callback/twitch', handleTwitchCallback);
+app.get('/auth/callback/spotify', handleSpotifyCallback);
 
 app.get('*', (req, res) => {
   res.status(404).send('404 Not found');

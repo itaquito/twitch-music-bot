@@ -16,3 +16,12 @@ model TwitchCredential {
 
   @@map("twitch_credentials")
 }
+
+model SpotifyCredential {
+  id           Int      @id @default(autoincrement())
+  accessToken  String   @map("access_token")
+  refreshToken String   @map("refresh_token")
+  expiresAt    DateTime @map("expires_at")
+
+  @@map("spotify_credentials")
+}
