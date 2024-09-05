@@ -8,7 +8,9 @@ async function main() {
   const commandPrefix = process.env.TWITCH_COMMAND_PREFIX;
   if (!commandPrefix) throw new Error('Missing TWITCH_COMMAND_PREFIX');
 
-  const twitchCredential = await prisma.twitchCredential.findFirst();
+  const twitchCredential = await prisma.twitchCredential.findFirst({
+    select: { username: true },
+  });
   if (!twitchCredential)
     throw new Error('No Twitch credentials found. Run the auth script first.');
 
@@ -17,13 +19,7 @@ async function main() {
     connection: { reconnect: true },
     identity: {
       username: twitchCredential.username,
-      password: () =>
-        getPassword(
-          twitchCredential.username,
-          twitchCredential.accessToken,
-          twitchCredential.refreshToken,
-          twitchCredential.expiresAt
-        ),
+      password: getPassword,
     },
     channels: [twitchCredential.username],
   });
@@ -37,8 +33,8 @@ async function main() {
     const args = message
       .slice(commandPrefix.length + command.length + 1)
       .trim();
-    console.log(tags);
-    if (command === 'play') handlePlayCommand(client, channel, args);
+
+    if (command === 'play') handlePlayCommand(client, channel, tags, args);
   });
 }
 

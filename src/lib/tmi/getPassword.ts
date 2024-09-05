@@ -1,31 +1,36 @@
 import refreshAccessToken from '../api/twitch/refreshAccessToken';
 import prisma from '../db/prisma';
 
-async function getPassword(
-  username: string,
-  accessToken: string,
-  refreshToken: string,
-  expiresAt: Date
-) {
+async function getPassword() {
+  const twitchCredential = await prisma.twitchCredential.findFirst({
+    select: {
+      id: true,
+      accessToken: true,
+      refreshToken: true,
+      expiresAt: true,
+    },
+  });
+  if (!twitchCredential)
+    throw new Error('No Twitch credentials found. Run the auth script first.');
+
   // The access token is still valid
-  if (expiresAt > new Date()) return `oauth:${accessToken}`;
+  if (twitchCredential.expiresAt > new Date())
+    return `oauth:${twitchCredential.accessToken}`;
 
   console.log('[!] Refreshing the access token...');
 
-  const token = await refreshAccessToken(refreshToken);
+  const token = await refreshAccessToken(twitchCredential.refreshToken);
   if (!token)
     throw new Error('Something went wrong while refreshing the token');
 
-  const newExpiresAt = new Date(Date.now() + token.expiresIn * 1000);
+  const expiresAt = new Date(Date.now() + token.expiresIn * 1000);
 
-  await prisma.twitchCredential.deleteMany();
-
-  await prisma.twitchCredential.create({
+  await prisma.twitchCredential.update({
+    where: { id: twitchCredential.id },
     data: {
-      username: username,
       accessToken: token.accessToken,
       refreshToken: token.refreshToken,
-      expiresAt: newExpiresAt,
+      expiresAt,
     },
   });
 

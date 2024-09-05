@@ -11,7 +11,10 @@ function getAuthorizationLink() {
   url.searchParams.append('redirect_uri', redirectUri);
   url.searchParams.append('response_type', 'code');
   url.searchParams.append('show_dialog', 'true');
-  url.searchParams.append('scope', 'user-modify-playback-state');
+  url.searchParams.append(
+    'scope',
+    'user-read-currently-playing user-read-playback-state user-modify-playback-state'
+  );
 
   return url.toString();
 }
