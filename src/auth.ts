@@ -4,6 +4,7 @@ import express from 'express';
 
 import showHelp from './controllers/showHelp';
 import handleTwitchPortal from './controllers/auth/portals/handleTwitchPortal';
+import handleSpotifyPortal from './controllers/auth/portals/handleSpotifyPortal';
 import handleTwitchCallback from './controllers/auth/callbacks/handleTwitchCallback';
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json());
 app.get('/', showHelp);
 
 app.get('/auth/portal/twitch', handleTwitchPortal);
+app.get('/auth/portal/spotify', handleSpotifyPortal);
 
 app.get('/auth/callback/twitch', handleTwitchCallback);
 

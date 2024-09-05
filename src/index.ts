@@ -37,7 +37,7 @@ async function main() {
     const args = message
       .slice(commandPrefix.length + command.length + 1)
       .trim();
-
+    console.log(tags);
     if (command === 'play') handlePlayCommand(client, channel, args);
   });
 }
