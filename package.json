@@ -5,7 +5,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node src/index.ts",
-    "dev": "nodemon src/index.ts"
+    "dev": "nodemon src/index.ts",
+    "auth-start": "ts-node src/auth.ts",
+    "auth-dev": "nodemon src/auth.ts"
   },
   "author": "itaquito, chamis13",
   "license": "ISC",
