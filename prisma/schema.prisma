@@ -7,23 +7,12 @@ datasource db {
   url      = "file:./database.db"
 }
 
-model User {
-  id Int @id @default(autoincrement())
-
-  twitchCredential TwitchCredential?
-
-  @@map("users")
-}
-
 model TwitchCredential {
   id           Int      @id @default(autoincrement())
   username     String   @unique
   accessToken  String   @map("access_token")
   refreshToken String   @map("refresh_token")
   expiresAt    DateTime @map("expires_at")
-
-  user   User @relation(fields: [userId], references: [id])
-  userId Int  @unique @map("user_id")
 
   @@map("twitch_credentials")
 }
