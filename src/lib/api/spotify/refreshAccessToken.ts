@@ -37,7 +37,6 @@ async function refreshAccessToken(refreshToken: string) {
     if (!res.ok) throw new Error("Response wasn't OK");
 
     const json = await res.json();
-    console.log(json);
     const { access_token, refresh_token, expires_in } =
       ResponseSchema.parse(json);
 

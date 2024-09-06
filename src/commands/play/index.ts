@@ -1,6 +1,7 @@
 import type { ChatUserstate, Client } from 'tmi.js';
 
 import searchTrack from '../../lib/api/spotify/searchTrack';
+import addTrackToPlaybackQueue from '../../lib/api/spotify/addTrackToPlaybackQueue';
 
 async function handlePlayCommand(
   client: Client,
@@ -21,6 +22,8 @@ async function handlePlayCommand(
       channel,
       `@${tags.username} No encontré la canción que buscas.`
     );
+
+  await addTrackToPlaybackQueue(track.uri);
 
   client.say(
     channel,
