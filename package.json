@@ -7,7 +7,7 @@
     "db": "prisma migrate deploy && prisma generate",
     "start": "ts-node src/index.ts",
     "dev": "nodemon src/index.ts",
-    "auth-start": "ts-node src/auth.ts",
+    "auth": "ts-node src/auth.ts",
     "auth-dev": "nodemon src/auth.ts"
   },
   "author": "itaquito, chamis13",
