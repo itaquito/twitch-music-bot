@@ -14,7 +14,7 @@ async function getAccessToken(code: string) {
     const redirectUrl = getRedirectUri();
     const authorizationToken = getAppAuthorizationToken();
 
-    const res = await fetch(`https://accounts.spotify.com/api/token`, {
+    const res = await fetch('https://accounts.spotify.com/api/token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',

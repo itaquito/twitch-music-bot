@@ -18,7 +18,7 @@ async function getAccessToken(code: string) {
 
     const redirectUrl = getRedirectUri();
 
-    const res = await fetch(`https://id.twitch.tv/oauth2/token`, {
+    const res = await fetch('https://id.twitch.tv/oauth2/token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
