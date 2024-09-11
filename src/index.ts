@@ -4,6 +4,7 @@ import prisma from './lib/db/prisma';
 import getPassword from './lib/tmi/getPassword';
 import handlePlayCommand from './commands/play';
 import handleQueueCommand from './commands/queue';
+import handleCurrentCommand from './commands/current';
 
 async function main() {
   const commandPrefix = process.env.TWITCH_COMMAND_PREFIX;
@@ -38,6 +39,8 @@ async function main() {
     if (command === 'play') handlePlayCommand(client, channel, tags, args);
     else if (command === 'queue')
       handleQueueCommand(client, channel, tags, args);
+    else if (command === 'current')
+      handleCurrentCommand(client, channel, tags, args);
   });
 }
 
